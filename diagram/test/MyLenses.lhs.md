@@ -57,5 +57,5 @@ Lense operations
 |(incr)| `v & 1 +~ n`||
 |(append)| `v & 1 <>~ x`||
 |(apply)| `v & l %~ f`||
-|(applyA)| 'v & 1 %%~ f'||
+|(applyA)| `v & 1 %%~ f`||
   
