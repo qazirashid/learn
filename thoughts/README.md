@@ -28,7 +28,7 @@ The reason I want to manipulate graphics objects before they are drawn on a surf
 Then these parameterized graphics objects are used to instantiate tikz scripts in  sequence such that we build a graphical movie frame by frame.
 To be able to specify changes between frames, I think it will be very difficult to just rely on Tikz. 
 
-#LuaTex, what is that?
+## LuaTex, what is that?
 So Tex was written by Donald E. Knuth around 1980s. It is a great software for typesetting.
 Tex output to a dvi file that is device independant (excellent engineering idea). Then DVI can be converted to any backend of intered, e.g., pdf, ps.
 Later someone wrote pdfTex, which was basically Tex but output was pdf. 
