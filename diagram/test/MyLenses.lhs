@@ -7,7 +7,7 @@ With lenses compact code can be written to work with Records.
 
 
 Example in ghci:
-
+```
 $ ghci>
 Prelude> :module + Control.Lens
 Prelude Control.Lens> (1,2,3) ^. _2
@@ -31,7 +31,7 @@ Prelude Control.Lens> view _3 x
 Prelude Control.Lens> let y = set _3 13 x
 Prelude Control.Lens> y
 (3,7,13)
-
+```
 
 Making Lenses for User Defined Records
 

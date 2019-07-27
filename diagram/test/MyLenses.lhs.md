@@ -49,4 +49,9 @@ Then all lens operations become availalbe on the user defined Records.
 Lense operations
 -----------------
 
-
+|name     | Symbols		| Comments		|
+|---------|---------------------|-----------------------|
+| view    | ` v ^. 1` 		| get field '1' from Record v|
+| set     | ` v & 1 .~ x`	| set field '1' from Record v to x|
+| (set Just)| v & l ?~ mx||
+  
