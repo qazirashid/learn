@@ -53,5 +53,9 @@ Lense operations
 |---------|---------------------|-----------------------|
 | view    | ` v ^. 1` 		| get field '1' from Record v|
 | set     | ` v & 1 .~ x`	| set field '1' from Record v to x|
-| (set Just)| v & l ?~ mx||
+| (set Just)| `v & 1 ?~ mx`||
+|(incr)| `v & 1 +~ n`||
+|(append)| `v & 1 <>~ x`||
+|(apply)| `v & l %~ f`||
+|(applyA)| 'v & 1 %%~ f'||
   
