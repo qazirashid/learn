@@ -4,8 +4,8 @@
 
 
 void printMatrix(int m[GSIZE][GSIZE]);
-int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int* Choice[GSIZE][GSIZE]);
-void printChoice( int* Choice[GSIZE][GSIZE]);
+int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]);
+void printChoice( int Choice[GSIZE][GSIZE][GSIZE]);
 
 int main (void){
 	int Status[GSIZE][GSIZE]; 
@@ -14,12 +14,12 @@ int main (void){
 	int Output[GSIZE][GSIZE]; 
 	// Output[i][j] = value, indicates that Cell[i][j]=value. Only meaningful if Status(i,j)=1.
 	// Output[i][j] = 0, indicates that Cell[i][j] is currently unknown and has multiple legal values.
-	int* Choice[GSIZE][GSIZE];
+	int Choice[GSIZE][GSIZE][GSIZE];
 	// Choice[i][j] points to an array[GSIZE] of ints that contains all legal values allowed in Cell[i][j].
-	for(int i=0; i<GSIZE; i++)
-	       	for(int j=0; j<GSIZE; j++){
-	       	Choice[i][j] = malloc(GSIZE*sizeof(int));
-	     }
+	//for(int i=0; i<GSIZE; i++)
+	       	//for(int j=0; j<GSIZE; j++){
+	       	//Choice[i][j] = malloc(GSIZE*sizeof(int));
+	     //}
 	//Allocated memory for all arrays of choices. Could not find a way to allocate it statically in a for loop. Maybe there is a way, don't know. 
 	//
 	//Initialize Grid with all 0s.
@@ -35,7 +35,7 @@ int main (void){
 }
 //Helper functions
 
-int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int* Choice[GSIZE][GSIZE]){
+int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]){
 	int i=0, j=0;
 	for(int i=0; i<GSIZE; i++)
 	       for(j=0; j<GSIZE; j++){
@@ -48,7 +48,7 @@ int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int* Choice[GSI
 	for(i=0; i<GSIZE; i++)
 	       for(j=0; j<GSIZE; j++){
 		       for(int k=0; k< GSIZE; k++)
-			       *( (Choice[i][j]) + k) = (k); 
+			       Choice[i][j][k] = k; 
 	      }
 	return(1); // Sucesss
 
@@ -67,13 +67,13 @@ void printMatrix(int m[GSIZE][GSIZE]){
 
 }
 
-void printChoice( int* Choice[GSIZE][GSIZE]){
+void printChoice( int Choice[GSIZE][GSIZE][GSIZE]){
 	
 	for(int i=0; i<GSIZE; i++)
 	       for(int j=0; j<GSIZE; j++){
 		       printf("Cell(%d,%d) can potentially contain: ", i,j);
 		       for(int k=0; k< GSIZE; k++){
-			       printf("%d ", *( (Choice[i][j]) + k)) ;
+			       printf("%d ", Choice[i][j][k]) ;
 		       }
 		      printf("\n"); 
 	      }	
@@ -87,7 +87,7 @@ int setCellValue(int i, int j, int v){
 	return(0);	
 }
 
-int canContain(int i, int j, int v, int* Choice[GSIZE][GSIZE]){
+int canContain(int i, int j, int v, int Choice[GSIZE][GSIZE][GSIZE]){
 	// Tests whether Cell(i,j) can contain v. 
 	// returns 1 if True. 0 if False.
 	for(int k=0; k<GSIZE; k++){
