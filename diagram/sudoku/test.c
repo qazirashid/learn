@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define GSIZE  9
+#define GBASE  3    //Base of the Grid. size of boxes in the grid.
+#define GSIZE  GBASE*GBASE   // Number of rows and colums
 
 /********* Function Declarations *************/
 void printMatrix(int m[GSIZE][GSIZE]);
 int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]);
 void printChoice( int Choice[GSIZE][GSIZE][GSIZE]);
 int canContain(int i, int j, int v, int Choice[GSIZE][GSIZE][GSIZE]);
-int setCellValue(int i, int j, int v, int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]);
+int setCellValue(const int i, const int j, const int v, int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]);
 int lowerBlockBound(int i);
 int upperBlockBound(int i);
+int setCellAndPrint(int i, int j, int v, int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]);
 /**************** Main *************************/
 
 int main (void){
@@ -29,36 +31,29 @@ int main (void){
 	//
 	//Initialize Grid with all 0s.
 	initGrid(Status, Output, Choice);		
-	printf("Current Status is:\n");
-	printMatrix(Status);
-	printf("Current Output is:\n");
-	printMatrix(Output);
-	printf("Current Legal Choices are:\n");
-	printChoice(Choice);
-
-	//******* Try to set Cell (0,0) to 9.
-	if (setCellValue(0,0,8,Status,Output,Choice)){
-		printf("Success setting cell(0,0):\n");
-		printf("Current Status is:\n");
-		printMatrix(Status);
-		printf("Current Output is:\n");
-		printMatrix(Output);
-		printf("Current Legal Choices are:\n");
-		printChoice(Choice);
-	}else printf("Failed to set Cell(0,0) to 8\n");
-		
-	if (setCellValue(0,1,3,Status,Output,Choice)){
-		printf("Success setting cell(0,0):\n");
-		printf("Current Status is:\n");
-		printMatrix(Status);
-		printf("Current Output is:\n");
-		printMatrix(Output);
-		printf("Current Legal Choices are:\n");
-		printChoice(Choice);
-	}else printf("Failed to Set Cell\n");
+	setCellValue(0,0,1, Status, Output, Choice);
+	setCellValue(3,1,1, Status, Output, Choice) ;
+	setCellValue(7,2,1, Status, Output, Choice);
+	setCellValue(1,3,1, Status, Output, Choice);
+	setCellValue(2,7,1, Status, Output, Choice);
+	setCellValue(0,1,8, Status, Output, Choice);
+	setCellAndPrint(3,2,8, Status, Output, Choice);
 
 }
 /***************** Helper Functions ***********************/
+int setCellAndPrint(int i, int j, int v, int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]){
+
+	if (setCellValue(i,j,v,Status,Output,Choice)){
+		printf("Current Status is:\n");
+		printMatrix(Status);
+		printf("Current Output is:\n");
+		printMatrix(Output);
+		printf("Current Legal Choices are:\n");
+		printChoice(Choice);
+		return(0);
+	}else printf("Failed to Set Cell(%d, %d) to %d \n", i, j, v);
+	return(1);
+}
 
 int initGrid(int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]){
 	int i=0, j=0;
@@ -84,10 +79,10 @@ void printMatrix(int m[GSIZE][GSIZE]){
 	for(int i=0; i<GSIZE;i++){
 		for(int j=0; j<GSIZE; j++){
 	       		printf("%d ", m[i][j]);	
-			if( (j+1) %3 == 0) printf("| ");
+			if( (j+1) % GBASE == 0) printf("| ");
 	      }
 		printf("\n");
-		if( (i+1)%3 == 0) printf("-----------------------\n");
+		if( (i+1) % GBASE == 0) printf("-----------------------\n");
 	}
 
 }
@@ -108,10 +103,10 @@ void printChoice( int Choice[GSIZE][GSIZE][GSIZE]){
 }
 
 
-int setCellValue(int i, int j, int v, int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]){
+int setCellValue(const int i, const int j, const int v, int Status[GSIZE][GSIZE], int Output[GSIZE][GSIZE], int Choice[GSIZE][GSIZE][GSIZE]){
 	// will attempt to set cell(i,j) value to v. On Success, returns 1. On failure returns 0. 
 	// Failure occurs when the v is illegal in Cell(i,j).
-	// Take care not to overwrite i, j, v. Preserve the passed values when using loops.
+
 	if((v<0) || (v >=GSIZE))
 		return(0); // invalid v was passed.
 	if(canContain(i,j,v, Choice)){
@@ -129,8 +124,8 @@ int setCellValue(int i, int j, int v, int Status[GSIZE][GSIZE], int Output[GSIZE
 		//5- For all Cells in the column j (0<=j<GSIZE), exclude v by setting Choice[i][j][v]=-1, because no further Cell in the column can be set to v.
 		for(int jr=0; jr<GSIZE; jr++)
 			Choice[i][jr][v] = -1;
-		//6- For all Cells in the 9x9 block containing Cell(i,j), exclude v by setting Choice[b][c][v] ==0, because this block cannot contain v in any other Cell.
-		// This is 2-D Loop. Calculate lower and upper bounds to contain (i,j) in the 9x9 box containing Cell (i,j)
+		//6- For all Cells in the 3x3 block containing Cell(i,j), exclude v by setting Choice[b][c][v] ==0, because this block cannot contain v in any other Cell.
+		// This is 2-D Loop. Calculate lower and upper bounds to contain (i,j) in the 3x3 box containing Cell (i,j)
 		int lbbi = lowerBlockBound(i); int ubbi = upperBlockBound(i);
 		int lbbj = lowerBlockBound(j); int ubbj = upperBlockBound(j);
 		for(int ir=lbbi; ir<ubbi; ir++)
@@ -156,10 +151,10 @@ int canContain(int i, int j, int v, int Choice[GSIZE][GSIZE][GSIZE]){
 }
 int lowerBlockBound(int i){
 	//Calculates the lower block boundary containing index i
-	int mod = (i)%3;
+	int mod = (i)%GBASE;
 	return(i-mod);
 }
 int upperBlockBound(int i){
 	//Calculates the upper block boundary containing index i
-	return(lowerBlockBound(i) +3);
+	return(lowerBlockBound(i) + GBASE);
 }
