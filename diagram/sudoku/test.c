@@ -25,22 +25,25 @@ int lowerBlockBound(int i);
 int upperBlockBound(int i);
 //Just for tests
 void printG(Grid * const g);
+int readGridStr(char* string, Grid* gp); 
 
 /**************** Main *************************/
 
 int main (void){
 	Grid g;
 	Grid* gp = &g;
+	char* gridStr ="[0 1 2 3 4 5 6 7 8; 3 4 5 6 7 8 0 1 2; 6 7 8 0 1 2 3 4 5   ]";
 	//Initialize Grid with all 0s.
 	initGrid(gp);		
+	readGridStr(gridStr, gp);
 	printGrid(gp);
-	setCellValue(gp,0,0,1);
-	setCellValue(gp,3,1,1) ;
-	setCellValue(gp,7,2,1);
-	setCellValue(gp,1,3,1);
-	setCellValue(gp,2,7,1);
-	setCellAndPrint(gp, 3,2,2);
-	printGrid(gp);
+	//setCellValue(gp,0,0,1);
+	//setCellValue(gp,3,1,1) ;
+	//setCellValue(gp,7,2,1);
+	//setCellValue(gp,1,3,1);
+	//setCellValue(gp,2,7,1);
+	//setCellAndPrint(gp, 3,2,2);
+	//printGrid(gp);
 }
 /***************** Helper Functions ***********************/
 void printGrid(const Grid* gp){
@@ -172,3 +175,49 @@ void printG(Grid* const gp){
 	//This does not raise any alarms when modifying contents of g using a pointer.
 	//This basically means taht gp is a constant. But the contents to which it points to, are not read-only. they can be written to.
 }
+
+int readGridStr(char* str, Grid* gp){
+	//readGridStr will read a Grid from a string. 
+	// There are asumptions about the structure of string, which must be respected when passing string to this function.
+	// Function itself will not perform any validation checks and will assume that the user has passed the correct string.
+	int currentPosition=0;
+	int readInt=-1;
+	int i=0, j=0;
+	int total=0;
+	printf("readGridStr(): Starting to read string to grid\n");
+	while(str[currentPosition] != '\0'){
+		//For each iteration of loop, if i,j exceed limits, bring them back.
+		if(i >= GSIZE){
+			i=0;
+			j=j+1;
+		}
+		//Do not read more than GSIZE*GSIZE ints
+		if(total >= GSIZE*GSIZE)
+			return(1);
+		//discard non-digit values in the input str.
+		//printf("readStrGrid(): Loop i=%d, j=%d, total=%d \n",i,j,total);
+		if (str[currentPosition] < 48 || str[currentPosition] > 57){
+		       	printf("readStrGrid(): Discarding %c\n", str[currentPosition]);
+			currentPosition++;
+			continue;
+		}
+		if(sscanf(&str[currentPosition++],"%d", &readInt)){
+		       	total++;	
+			if(readInt<0 || readInt>(GSIZE-1)){
+				//Successfully scanned an int, but it is not valid.
+				//leave this grid cell unchanged. skip to next grid cell.
+				i++;
+			}else{
+				setCellValue(gp, j, i, readInt);
+				i++;
+				
+			}
+
+		}else{
+			printf("readStrGrid():sscanf failed: i=%d, j=%d, total=%d",i,j,total);
+		}
+
+	}
+	return(0); //reading failed.
+
+}	
