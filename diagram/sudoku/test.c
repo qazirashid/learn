@@ -26,17 +26,29 @@ int upperBlockBound(int i);
 //Just for tests
 void printG(Grid * const g);
 int readGridStr(char* string, Grid* gp); 
+int isSolved(Grid* gp);
 
 /**************** Main *************************/
 
 int main (void){
 	Grid g;
 	Grid* gp = &g;
-	char* gridStr ="[0 1 2 3 4 5 6 7 8; 3 4 5 6 7 8 0 1 2; 6 7 8 0 1 2 3 4 5   ]";
+	char* gridStr ="[0 1 2 3 4 5 6 7 8;\
+		         3 4 5 6 7 8 0 1 2;\
+			 6 7 8 0 1 2 3 4 5;\
+			 8 0 1 2 3 4 5 6 7;\
+			 2 3 4 5 6 7 8 0 1;\
+			 5 6 7 8 0 1 2 3 4;\
+		       	 7 8 0 1 2 3 4 5 6;\
+		 	 1 2 3 4 5 6 7 8 0;\
+			 4 5 6 7 8 0 1 2 3]";
 	//Initialize Grid with all 0s.
 	initGrid(gp);		
 	readGridStr(gridStr, gp);
 	printGrid(gp);
+	if(isSolved(gp))
+		printf("SUDOKU IS SOLVED");
+
 	//setCellValue(gp,0,0,1);
 	//setCellValue(gp,3,1,1) ;
 	//setCellValue(gp,7,2,1);
@@ -143,7 +155,6 @@ int setCellValue(Grid* gp, const int i, const int j, const int v){
 			for(int jr=lbbj; jr<ubbj; jr++)
 				gp->Choice[ir][jr][v]=-1;
 		// Trying to set any other cell in this block to v will fail in future.
-
 		//ALL DONE. Ready to declare success.
 		return(1);
 
@@ -219,5 +230,14 @@ int readGridStr(char* str, Grid* gp){
 
 	}
 	return(0); //reading failed.
+}
+int isSolved( Grid* gp){
+	for(int i=0; i<GSIZE; i++)
+		for(int j=0; j<GSIZE; j++){
+			if(gp -> Status[i][j] == 0) 
+				return(0);
+		}
+	return(1);	
+}
 
-}	
+	
