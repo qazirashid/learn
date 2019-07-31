@@ -11,15 +11,20 @@ typedef struct grid_t{
 } Grid;
 
 /********* Function Declarations *************/
-void printMatrix(int m[GSIZE][GSIZE]);
-void printGrid(Grid g);
+//Grid updaters
 int initGrid(Grid* gp);
-void printChoice( int Choice[GSIZE][GSIZE][GSIZE]);
-int canContain(Grid g, int i, int j, int v);
 int setCellValue(Grid* gp, const int i, const int j, const int v);
+int setCellAndPrint(Grid* gp, int i, int j, int value);
+// Printers 
+void printMatrix(const int m[GSIZE][GSIZE]);
+void printGrid(const Grid* gp);
+void printChoice(const int Choice[GSIZE][GSIZE][GSIZE]);
+//Secondary helpers
+int canContain(Grid g, int i, int j, int v);
 int lowerBlockBound(int i);
 int upperBlockBound(int i);
-int setCellAndPrint(Grid* gp, int i, int j, int value);
+//Just for tests
+void printG(Grid * const g);
 
 /**************** Main *************************/
 
@@ -28,28 +33,28 @@ int main (void){
 	Grid* gp = &g;
 	//Initialize Grid with all 0s.
 	initGrid(gp);		
-	printGrid(g);
+	printGrid(gp);
 	setCellValue(gp,0,0,1);
 	setCellValue(gp,3,1,1) ;
 	setCellValue(gp,7,2,1);
 	setCellValue(gp,1,3,1);
 	setCellValue(gp,2,7,1);
 	setCellAndPrint(gp, 3,2,2);
-	printGrid(g);
+	printGrid(gp);
 }
 /***************** Helper Functions ***********************/
-void printGrid(Grid g){
+void printGrid(const Grid* gp){
 		printf("Current Status is:\n");
-		printMatrix(g.Status);
+		printMatrix(gp->Status);
 		printf("Current Output is:\n");
-		printMatrix(g.Output);
+		printMatrix(gp->Output);
 		printf("Current Legal Choices are:\n");
-		printChoice(g.Choice);
+		printChoice(gp->Choice);
 	}
 
 int setCellAndPrint(Grid* gp, int i, int j, int v){
 	if (setCellValue(gp, i,j,v)){
-		printGrid(*gp);	
+		printGrid(gp);	
 	}else 
 		printf("Failed to Set Cell(%d, %d) to %d \n", i, j, v);
 	return(1);
@@ -74,7 +79,7 @@ int initGrid(Grid* gp){
 
 }
 
-void printMatrix(int m[GSIZE][GSIZE]){
+void printMatrix(const int m[GSIZE][GSIZE]){
 	
 	for(int i=0; i<GSIZE;i++){
 		for(int j=0; j<GSIZE; j++){
@@ -87,7 +92,7 @@ void printMatrix(int m[GSIZE][GSIZE]){
 
 }
 
-void printChoice( int Choice[GSIZE][GSIZE][GSIZE]){
+void printChoice(const int Choice[GSIZE][GSIZE][GSIZE]){
 	
 	for(int i=0; i<GSIZE; i++)
 	       for(int j=0; j<GSIZE; j++){
@@ -161,4 +166,9 @@ int lowerBlockBound(int i){
 int upperBlockBound(int i){
 	//Calculates the upper block boundary containing index i
 	return(lowerBlockBound(i) + GBASE);
+}
+void printG(Grid* const gp){
+	gp->Status[0][0]=1;
+	//This does not raise any alarms when modifying contents of g using a pointer.
+	//This basically means taht gp is a constant. But the contents to which it points to, are not read-only. they can be written to.
 }
