@@ -25,6 +25,10 @@ void printChoice(const int Choice[GSIZE][GSIZE][GSIZE]);
 int canContain(Grid g, int i, int j, int v);
 int lowerBlockBound(int i);
 int upperBlockBound(int i);
+int getNumChoices(Grid* gp, int i, int j);
+//getNumChoices returns the number of legal choices for Cell(i,j).
+int getAChoice(Grid* gp, int i, int j);
+//getAChoice returns lowest value legal choice for Cell(i,j).
 //Just for tests
 void printG(Grid * const g);
 int readGridStr(char* string, Grid* gp); 
@@ -211,6 +215,24 @@ int isSolved( Grid* gp){
 				return(0);
 		}
 	return(1);	
+}
+int getNumChoices(Grid* gp, int i, int j){
+	int n=0;
+	for(int k=0; k<GSIZE; k++){
+		if(gp->Choice[i][j][k] != -1)
+			n++;
+	}
+	return(n);
+}
+int getAChoice(Grid* gp, int i, int j){
+	int v = -1;
+	for(int k=0; k<GSIZE; k++){
+		v = gp->Choice[i][j][k];
+		if( v != -1) 
+			return(v);
+	}
+	return(v);
+
 }
 #endif
 	

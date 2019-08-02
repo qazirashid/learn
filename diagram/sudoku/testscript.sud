@@ -1,0 +1,21 @@
+#Comments are ignored.
+# Cell indices and values are 0 based. Thus legal values are 0, 1, 2,.. 8.
+# When preparing final output, values can be coverted to range 1 to 9.
+
+
+#set Cell(0,0) to value 2
+set 0 0 2 
+set 0 1 0
+set 0 2 8
+set 1 0 1
+set 1 1 7
+set 1 2 4
+set 2 0 3
+set 2 1 6
+set 2 2 5
+print
+
+choice 3 1
+getchoice 3 1
+quit
+
