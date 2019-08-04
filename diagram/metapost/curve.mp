@@ -23,6 +23,7 @@ beginfig(1);
 	draw z1{z2-z1}..z1234{z234-z123};
 	draw z1234{z234 -z123}..z4{z4-z3};
 
+
 endfig;
 end
 
