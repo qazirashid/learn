@@ -1,5 +1,3 @@
-
-		
 prologues := 3;
 outputformat := "svg";
 outputtemplate := "%j.svg";
@@ -11,9 +9,6 @@ beginfig(1);
 	z4 = (0,0);
 	z5 = (100,0);
 	z6 = (200,0);
-
-	
-
 endfig;
 end
 
