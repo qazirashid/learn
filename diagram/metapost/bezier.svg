@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- Created by MetaPost 2.000 on 2019.08.04:0039 -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120.500000" height="60.500000" viewBox="0 0 120.500000 60.500000">
+<!-- Original BoundingBox: -0.250000 -0.250000 120.250000 60.250000 -->
+  <path d="M0.000000 60.000000C20.000000 20.000000,100.000000 -0.000000,120.000000 40.000000Z" style="fill: rgb(0.000000%,0.000000%,0.000000%);stroke: none;"></path>
+  <path d="M0.000000 60.000000L20.000000 20.000000" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+  <path d="M100.000000 -0.000000L120.000000 40.000000" style="stroke:rgb(0.000000%,0.000000%,0.000000%); stroke-width: 0.500000;stroke-linecap: round;stroke-linejoin: round;stroke-miterlimit: 10.000000;fill: none;"></path>
+</svg>
