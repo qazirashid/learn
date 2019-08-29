@@ -119,7 +119,7 @@ fi
 alias tsk='cp ~/learn/learn/tex/skeleton.tex ./'
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
 export PUPPETEER_EXECUTABLE_PATH="/usr/bin/google-chrome-stable"
-export CHROME_BIN=/usr/bin
+export CHROME_BIN="/usr/bin/google-chrome-stable"
 NPM_PACKAGES="${HOME}/.npm-packages"
 
 export PATH="$NPM_PACKAGES/bin:$PATH"
