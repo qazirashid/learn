@@ -8,15 +8,15 @@ It is a dynamically linked executable so it will require installation of freetyp
 I have made some additions to the example provided by freetype.org.
 The provided example required a character.
 I have changed it so that user can specify a font index as an unsigned int, instead of entering a character from keyboard.
-'''console
+```console
 $ ./fi2svg /usr/share/texmf/fonts/opentype/public/tex-gyre-math/texgyrepagella-math.otf 12 > index12.svg
-'''
+```
 
 ## font2svg usage
-'''console
+```console 
 $ ./font2svg 'pathToFontFile' 'char_for_glyph'
 $ ./font2svg /usr/share/texmf/fonts/opentype/public/tex-gyre-math/texgyrepagella-math.otf B > B.svg
-'''
+```
 
 
 
