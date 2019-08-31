@@ -1,4 +1,7 @@
+
 # Notes on SVG Specifications
+These are notes on SVG specification. They are distributed over multiple markdown files.
+
 Written down as part of reading [second editio of SVG 1.1 specification] (w3.org/TR/SV11)
 
 ## Basics of SVG
