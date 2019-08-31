@@ -3,9 +3,7 @@ Written down as part of reading [second editio of SVG 1.1 specification] (w3.org
 
 ## Basics of SVG
 
-```html 
-<h2 style="color=blue"> What is SVG? <h2>
-```
+### <h2 style="color=blue"> What is SVG? <h2>
 SVG is a language for describing 2-D grphics in XML. 
 #### What are they types of SVG graphical objects?
 SVG has three types of graphic objects: 1) shapes, 2) Text, and 3) image (raster)
