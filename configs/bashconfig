@@ -1,0 +1,14 @@
+#my personal aliases
+alias tsk='cp ~/learn/learn/tex/skeleton.tex ./'
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
+export PUPPETEER_EXECUTABLE_PATH="/usr/bin/google-chrome-stable"
+export CHROME_BIN="/usr/bin/google-chrome-stable"
+NPM_PACKAGES="${HOME}/.npm-packages"
+
+export PATH="$NPM_PACKAGES/bin:$PATH"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules"
+
+
+# Prepare emcc environment for webassembly 
+source ~/work/wasm/emsdk/emsdk_env.sh
+
