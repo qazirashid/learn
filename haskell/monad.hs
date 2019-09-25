@@ -29,3 +29,10 @@ idTest x
     | (fmap id x) == (id x) = "PASS"
     | otherwise = "FAIL"
 
+instance Monad MyType where 
+    return = MJ
+    vmt >>= typeMaker = case vmt of 
+                            MN -> MN
+                            MJ x -> typeMaker x
+    fail str  = MN
+
